@@ -18,31 +18,28 @@ SELECT
   UnitPrice
 FROM Product
 ORDER BY UnitPrice DESC
-LIMIT 10
+LIMIT 10;
 '''
 results = cursor.execute(query).fetchall()
-print(results)
+print('Most expensive products',results, '\n')
 
 # What is the average age of an employee at the time of hiring
 query2 = '''
 SELECT
   AVG(HireDate-BirthDate)
-FROM Employee
+FROM Employee;
 '''
 results2 = cursor.execute(query2).fetchall()
-print(results2)
+print('Average age of employee at the time of hiring', results2, '\n')
 
 # How does the average age of the employee at hire vary by city
 query3 = '''
-SELECT
-  City,
-  AVG(HireDate-BirthDate) as City Average Hire age
+SELECT AVG(HireDate-BirthDate), City
 FROM Employee
-GROUP BY City
+GROUP BY City;
 '''
-
 results3 = cursor.execute(query3).fetchall()
-print(results3)
+print('Average age by city', results3,'\n')
 
 ### Part 3 - Sailing the Northwind Seas
 
@@ -60,7 +57,7 @@ ORDER BY p.UnitPrice DESC
 LIMIT 10
 '''
 results4 = cursor.execute(query4).fetchall()
-print(results4)
+print('Most expensive by company:',results4,'\n')
 
 # What is the largest category(by number of unique products in it)?
 query5 = '''
@@ -73,7 +70,7 @@ GROUP BY c.CategoryName
 ORDER BY cat_count DESC
 '''
 results5 = cursor.execute(query5).fetchall()
-print(results5)
+print('Largest category',results5, '\n')
 
 # Who is the employee with the most Territories?
 query6 = '''
@@ -81,15 +78,15 @@ SELECT
   et.EmployeeId,
   e.FirstName,
   e.Lastname,
-  COUNT(et.TerritoryId) as Total Territory
+  COUNT(et.TerritoryId) as TotalTerritory
 FROM Employee as e
 JOIN EmployeeTerritory et on e.Id = et.EmployeeId
-GROUP BY et.EmployeId
-ORDER BY Total Territory DESC
+GROUP BY et.EmployeeId
+ORDER BY TotalTerritory DESC
 LIMIT 1
 '''
 
-results6 = cursor.execute(query6).fetchall()
-print(results6)
+results6 = cursor.execute(query6).fetchone()
+print('Employee with the most territories :',results6)
 
 
